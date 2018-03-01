@@ -1,0 +1,108 @@
+mkdir groking-git
+cd groking-git/
+tree -a
+git init 
+tree -a
+wget https://raw.githubusercontent.com/mtholder/git-branch-tutorial-data/master/00-simple.py -O simple.py
+cat simple.py 
+git status
+git add simple.py ; git commit -m "hello world"
+tree -a
+cat .git/refs/heads/master 
+git cat-file -p ...
+wget https://raw.githubusercontent.com/mtholder/git-branch-tutorial-data/master/README.md -O README.md
+vi simple.py 
+git add README.md 
+git commit -m "readme and no exclamations" -a
+tree -a
+git cat-file -p ...
+wget https://raw.githubusercontent.com/mtholder/git-branch-tutorial-data/master/License.txt -O License.txt
+wget https://raw.githubusercontent.com/mtholder/git-branch-tutorial-data/master/01-simple.py -O simple.py
+mkdir data
+wget https://raw.githubusercontent.com/mtholder/git-branch-tutorial-data/master/data/limnonectes.fasta -O data/limnonectes.fasta
+git status
+git add License.txt simple.py data/limnonectes.fasta
+git commit
+git cat-file -p 
+git branch
+git branch experiment
+git branch
+git checkout experiment 
+ls .git/refs/heads/
+cat .git/refs/heads/master 
+cat .git/refs/heads/experiment 
+wget https://raw.githubusercontent.com/mtholder/git-branch-tutorial-data/master/02-simple.py -O simple.py
+git status
+git diff
+python simple.py data/limnonectes.fasta  ACG
+git commit -m "counts sequences" -a
+gitk
+git checkout  master 
+cat simple.py
+gitk
+python simple.py data/limnonectes.fasta  ACG
+git merge experiment 
+cat simple.py
+gitk
+python simple.py data/limnonectes.fasta  ACG
+git checkout experiment 
+wget https://raw.githubusercontent.com/mtholder/git-branch-tutorial-data/master/03-test.sh -O test.sh
+echo test.sh >> .git/info/exclude 
+bash test.sh
+vi simple.py
+bash test.sh
+git commit -a -m "fixed test"
+git checkout master
+bash test.sh
+vi simple.py
+bash test.sh
+git commit -a -m "another way to fix the test"
+git merge experiment
+bash test.sh
+git diff HEAD^..HEAD
+vi simple.py
+git commit -m "fixed duplicate incr" -a
+bash test.sh
+git checkout master
+git merge experiment
+bash test.sh
+cat simple.py
+vi simple.py
+python simple.py data/limnonectes.fasta  ACG
+bash test.sh
+git commit -m "quieter" -a
+git checkout experiment
+vi simple.py
+python simple.py data/limnonectes.fasta  ACG
+bash test.sh
+git commit -m "diff quieter" -a
+git merge master
+vi simple.py
+python simple.py data/limnonectes.fasta  ACG
+bash test.sh
+git commit -m "manually resolved conflict on merge"
+git checkout master
+git merge experiment
+bash test.sh
+
+
+
+
+grep ncs simple.py 
+git bisect start
+git bisect bad
+git checkout HEAD^^^^^^^
+git bisect good
+
+git bisect reset
+
+git checkout SHA
+git branch fixtypo
+git checkout fixtypo
+vi simple.py
+git commit -m "fix of silly typo" -a
+
+git checkout master
+git merge fixtypo
+bash test.sh
+grep ncs simple.py
